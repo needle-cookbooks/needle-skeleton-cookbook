@@ -6,6 +6,8 @@ driver:
 
 provisioner:
   name: chef_zero
+  attributes:
+    instance_role: vagrant
 
 platforms:
   - name: ubuntu-12.04
