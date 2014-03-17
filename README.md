@@ -24,8 +24,8 @@ The cookbook provides the following Rake tasks for testing:
 
 ## License and Author
 
-- Author: YOUR_NAME
-- Copyright (C) YEAR YOUR_NAME_OR_COMPANY
+- Author: Needle Ops <cookbooks@needle.com>
+- Copyright (C) YEAR, Needle Inc.
 
 All rights reserved.
 
