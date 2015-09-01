@@ -1,28 +1,16 @@
 AllCops:
-  Includes:
-    - Berksfile
-    - Gemfile
-    - Rakefile
-    - Thorfile
-    - Guardfile
-  Excludes:
-    - vendor/**
+  Include:
+    - '**/Berksfile'
+    - '**/Gemfile'
+    - '**/Rakefile'
+    - '**/Thorfile'
+    - '**/Guardfile'
+  Exclude:
+    - 'vendor/**/*'
+    - 'cookbooks_vendor/**/*'
+    - '**/metadata.rb'
 
-ClassLength:
+Metrics/LineLength:
   Enabled: false
-Documentation:
-  Enabled: false
-Encoding:
-  Enabled: false
-HashSyntax:
-  Enabled: false
-LineLength:
-  Enabled: false
-MethodLength:
-  Enabled: false
-SignalException:
-  Enabled: false
-TrailingComma:
-  Enabled: false
-WordArray:
+Style/NumericLiterals:
   Enabled: false

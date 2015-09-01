@@ -1,7 +1,10 @@
 #
-# Cookbook Name:: skeleton
-# Attributes:: default
+# Cookbook Name:: needle-skeleton
+# Recipe:: default
 #
-# Copyright (C) YEAR, Needle Inc.
+# Copyright 2015, Needle Inc.
 #
+# All rights reserved - Do Not Redistribute
+#
+
 log 'replace this with a meaningful resource'

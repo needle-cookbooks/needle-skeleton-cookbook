@@ -2,35 +2,80 @@ require 'foodcritic'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
 
-desc 'Run RuboCop style and lint checks'
-Rubocop::RakeTask.new(:rubocop)
+# Modify top level class for nicer output
+class String
+  def green
+    "\033[32m#{self}\033[0m"
+  end
 
-desc 'Run Foodcritic lint checks'
-FoodCritic::Rake::LintTask.new(:foodcritic) do |t|
-  t.options = {
-    :fail_tags => ['any'],
-    :tags => [
-      '~FC003',
-      '~FC015'
-    ]
-  }
+  def bold
+    "\033[1m#{self}\033[0m"
+  end
+end
+
+task :rubocop_pass do
+  puts '** Rubocop passed! **'.green.bold
+end
+
+task :food_pass do
+  puts '** FoodCritic passed! **'.green.bold
+end
+
+task :spec_pass do
+  puts '** ChefSpec passed! **'.green.bold
+end
+
+desc 'Install Gem dependencies'
+task :bundle do
+  File.delete('Gemfile.lock') if File.exist?(File.expand_path('Gemfile.lock'))
+  exit(1) unless system('bundle install') || File.exist?(File.expand_path('Gemfile.lock'))
+  puts '** Installed gems with Bundle! **'.green.bold
+end
+
+desc 'Install Berkshelf dependencies'
+task :berks do
+  ENV['SOLVE_TIMEOUT'] = '1000000'
+  File.delete('Berksfile.lock') if File.exist?(File.expand_path('Berksfile.lock'))
+
+  case ENV['CI']
+  when 'travisci'
+    berks_cmd = 'berks install -qc test/travis_ci/travis_ci_berkshelf.json'
+  else
+    berks_cmd = 'berks install'
+  end
+
+  exit(1) unless system(berks_cmd) || File.exist?(File.expand_path('Berksfile.lock'))
+  puts '** Installed cookbook deps with Berkshelf! **'.green.bold
+end
+
+desc 'Install all dependencies'
+task deps: [:bundle, :berks]
+
+desc 'Run RuboCop checks'
+task :rubocop do
+  puts '** Rubocop passed! **'.green.bold unless RuboCop::RakeTask.new
+end
+
+desc 'Run FoodCritic lint checks'
+task :foodcritic do
+  puts '** FoodCritic passed! **'.green.bold unless FoodCritic::Rake::LintTask.new do |t|
+    t.options = { fail_tags: ['any'] }
+  end
 end
 
 desc 'Run ChefSpec examples'
-RSpec::Core::RakeTask.new(:spec)
+task :spec do
+  puts '** ChefSpec passed! **'.green.bold unless RSpec::Core::RakeTask.new
+end
 
 desc 'Run all tests'
-task :test => [:rubocop, :foodcritic, :spec]
-task :default => :test
-task :lint => :foodcritic
+task test: [:rubocop, :rubocop_pass, :foodcritic, :food_pass, :spec, :spec_pass]
 
-begin
-  require 'kitchen/rake_tasks'
-  Kitchen::RakeTasks.new
+desc 'Travis CI testing task'
+task ci: [:berks, :test]
 
-  desc 'Alias for kitchen:all'
-  task :integration => 'kitchen:all'
-  task :test_all => [:test, :integration]
-rescue LoadError
-  puts '>>>>> Kitchen gem not loaded, omitting tasks' unless ENV['CI']
-end
+desc 'Default task, installs all deps and runs all tests'
+task default: [:deps, :test]
+
+desc 'Alias for FoodCritic task'
+task lint: [:foodcritic, :food_pass]

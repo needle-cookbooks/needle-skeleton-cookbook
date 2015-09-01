@@ -1,32 +1,45 @@
-# Skeleton Cookbook
+Needle Skeleton Cookbook
+============================
+Skeleton of a cookbook
 
-## Requirements
+Requirements
+------------
+#### Recipes
+- `skeleton::default` - Main recipe
 
-### Platform:
+Attributes
+----------
+#### skeleton::default
+<table>
+  <tr>
+    <th>Key</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Attribute</th>
+  </tr>
+  <tr>
+    <td><tt>['skeleton']['example']</tt></td>
+    <td>String</td>
+    <td>Example attribute</td>
+    <td><tt>Default</tt></td>
+  </tr>
+</table>
 
-### Cookbooks:
+Usage
+-----
+#### skeleton::default
 
-## Attributes
+Include `skeleton` in node's `run_list`:
 
-## Recipes
+```json
+{
+  "name":"my_node",
+  "run_list": [
+    "recipe[skeleton]"
+  ]
+}
+```
 
-## Testing
-
-The cookbook provides the following Rake tasks for testing:
-
-    rake foodcritic                   # Lint Chef cookbooks
-    rake integration                  # Alias for kitchen:all
-    rake kitchen:all                  # Run all test instances
-    rake kitchen:default-ubuntu-1204  # Run default-ubuntu-1204 test instance
-    rake rubocop                      # Run RuboCop style and lint checks
-    rake spec                         # Run ChefSpec examples
-    rake test                         # Run all tests
-
-## License and Author
-
-- Author: Needle Ops <cookbooks@needle.com>
-- Copyright (C) YEAR, Needle Inc.
-
-All rights reserved.
-
-This is a skeleton example of a private cookbook that isn't shared externally. For a public cookbook example, see [Mathias Lafeldt's skeleton cookboko](https://github.com/mlafeldt/skeleton-cookbook).
+Authors and Maintainers
+-----------------------
+- Needle-Ops <ops@needle.com>

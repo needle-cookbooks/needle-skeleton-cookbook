@@ -1,9 +1,8 @@
-source 'https://api.berkshelf.com'
+source 'https://supermarket.chef.io'
 
 metadata
 
 group :integration do
-  # add cookbooks used for local testing here. e.g.,
-  # cookbook 'apt'
-  # cookbook 'test', :path => './test/fixtures/cookbooks/test'
+  cookbook 'apt'
+  cookbook 'build-essential'
 end

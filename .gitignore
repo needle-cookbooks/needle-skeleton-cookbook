@@ -1,26 +1,22 @@
-# Editors etc
 *~
 *#
 .#*
 \#*#
 .*.sw[a-z]
 *.un~
-
-# Bundler
-/Gemfile.lock
-/bin/
-/.bundle/
-/bundle/
-/vendor/gems/
+pkg/
 
 # Berkshelf
-/Berksfile.lock
-/cookbooks/
-/vendor/cookbooks/
+.vagrant
+/cookbooks
+Berksfile.lock
 
-# Vagrant
-/.vagrant/
+# Bundler
+Gemfile.lock
+bin/*
+.bundle/*
 
-# Test Kitchen
-/.kitchen/
-/.kitchen.local.yml
+.kitchen/
+.kitchen.local.yml
+/vendor
+/cookbooks_vendor
