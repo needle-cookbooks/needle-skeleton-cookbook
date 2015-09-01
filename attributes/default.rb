@@ -5,3 +5,5 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+
+default['needle-skeleton']['example'] = 'example attribute'

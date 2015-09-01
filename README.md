@@ -5,11 +5,11 @@ Skeleton of a cookbook
 Requirements
 ------------
 #### Recipes
-- `skeleton::default` - Main recipe
+- `needle-skeleton::default` - Main recipe
 
 Attributes
 ----------
-#### skeleton::default
+#### needle-skeleton::default
 <table>
   <tr>
     <th>Key</th>
@@ -18,7 +18,7 @@ Attributes
     <th>Attribute</th>
   </tr>
   <tr>
-    <td><tt>['skeleton']['example']</tt></td>
+    <td><tt>['needle-skeleton']['example']</tt></td>
     <td>String</td>
     <td>Example attribute</td>
     <td><tt>Default</tt></td>
@@ -27,15 +27,15 @@ Attributes
 
 Usage
 -----
-#### skeleton::default
+#### needle-skeleton::default
 
-Include `skeleton` in node's `run_list`:
+Include `needle-skeleton` in node's `run_list`:
 
 ```json
 {
   "name":"my_node",
   "run_list": [
-    "recipe[skeleton]"
+    "recipe[needle-skeleton]"
   ]
 }
 ```

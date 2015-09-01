@@ -34,17 +34,8 @@ end
 
 desc 'Install Berkshelf dependencies'
 task :berks do
-  ENV['SOLVE_TIMEOUT'] = '1000000'
   File.delete('Berksfile.lock') if File.exist?(File.expand_path('Berksfile.lock'))
-
-  case ENV['CI']
-  when 'travisci'
-    berks_cmd = 'berks install -qc test/travis_ci/travis_ci_berkshelf.json'
-  else
-    berks_cmd = 'berks install'
-  end
-
-  exit(1) unless system(berks_cmd) || File.exist?(File.expand_path('Berksfile.lock'))
+  exit(1) unless system('berks install') || File.exist?(File.expand_path('Berksfile.lock'))
   puts '** Installed cookbook deps with Berkshelf! **'.green.bold
 end
 
@@ -71,7 +62,7 @@ end
 desc 'Run all tests'
 task test: [:rubocop, :rubocop_pass, :foodcritic, :food_pass, :spec, :spec_pass]
 
-desc 'Travis CI testing task'
+desc 'Travis CI test task'
 task ci: [:berks, :test]
 
 desc 'Default task, installs all deps and runs all tests'
